@@ -15,7 +15,7 @@ export const goodsFromServer = [
   'Garlic',
 ];
 
-enum sortType {
+enum SortType {
   SORT_ALPHABETICALLY = 'alphabetically',
   SORT_BY_LENGTH = 'length',
 }
@@ -31,9 +31,9 @@ function getSortedGoods(goods: string[], { sortQuery, reversed }: Sort) {
   if (sortQuery) {
     sortedGoods.sort((goods1, goods2) => {
       switch (sortQuery) {
-        case sortType.SORT_ALPHABETICALLY:
+        case SortType.SORT_ALPHABETICALLY:
           return goods1.localeCompare(goods2);
-        case sortType.SORT_BY_LENGTH:
+        case SortType.SORT_BY_LENGTH:
           return goods1.length - goods2.length;
         default:
           return 0;
@@ -49,7 +49,7 @@ function getSortedGoods(goods: string[], { sortQuery, reversed }: Sort) {
 }
 
 export const App: React.FC = () => {
-  const [sortQuery, setQuery] = useState<sortType | ''>('');
+  const [sortQuery, setQuery] = useState<SortType | ''>('');
   const [reversed, setReversed] = useState(false);
   const goodsCopy = getSortedGoods(goodsFromServer, { sortQuery, reversed });
 
@@ -58,9 +58,9 @@ export const App: React.FC = () => {
       <div className="buttons">
         <button
           type="button"
-          className={`button is-info ${sortQuery === sortType.SORT_ALPHABETICALLY ? '' : 'is-light'}`}
+          className={`button is-info ${sortQuery === SortType.SORT_ALPHABETICALLY ? '' : 'is-light'}`}
           onClick={() => {
-            setQuery(sortType.SORT_ALPHABETICALLY);
+            setQuery(SortType.SORT_ALPHABETICALLY);
           }}
         >
           Sort alphabetically
@@ -68,9 +68,9 @@ export const App: React.FC = () => {
 
         <button
           type="button"
-          className={`button is-success ${sortQuery === sortType.SORT_BY_LENGTH ? '' : 'is-light'}`}
+          className={`button is-success ${sortQuery === SortType.SORT_BY_LENGTH ? '' : 'is-light'}`}
           onClick={() => {
-            setQuery(sortType.SORT_BY_LENGTH);
+            setQuery(SortType.SORT_BY_LENGTH);
           }}
         >
           Sort by length
